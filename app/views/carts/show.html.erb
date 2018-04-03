@@ -1,0 +1,12 @@
+<% if @cart != nil %>
+<% @cart.items.each do |t| %>
+
+	<%= t.name %><br>
+	description: <%= t.description %><br>
+	price: $<%= t.price %><br>
+	<%= image_tag t.avatar.url(:medium) %>
+<% end %>
+<%end %>
+<%if @cart == nil %>
+	<h2>cart is empty</h2>
+<% end %>
