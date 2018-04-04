@@ -1,11 +1,12 @@
-<nav>
+<body class="charges_body">
+<nav class="charges_nav">
     	<ul>
         <li> <%= link_to "Shop", items_path %></li>
         <% if !user_signed_in? %>
     		<li><%= link_to "Register", new_user_registration_path %></li>
     		<li><%= link_to "Login", new_user_session_path %></li>
         <% end %>
-             <li><%= link_to "Cart", cart_path(session[:session_id]) %></li>
+             <li><%= link_to "Cart", cart_path(session[:cart_id]) %></li>
 
         <% if user_signed_in? %>
         <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
@@ -13,6 +14,16 @@
     	</ul>
 </nav>
 
+<h2>Thanks, you paid <strong> $<%=@cart.totalcost%> </strong>!</h2>
+<h3>Heres your receipt, items will be delivered in 5-7 business days</h3>
 
+<% @cart.items.each do |t| %>
+<div class="cart_items">
+    item: <%= t.name %><br> price: $<%= t.price %> <br><%= image_tag t.avatar.url(:medium) %><br> quantity: x<%= t.quantity %><br> totalcost: $<%=t.totalprice%> <br><br>
+</div>
+<%end %>
+Amount Paid: $<%= @cart.totalcost %>
+ <% @cart.items.delete_all %>
+     <% @cart.update(totalcost: 0) %>
 
-<h2>Thanks, you paid <strong>$5.00 </strong>!</h2>
+ </body>

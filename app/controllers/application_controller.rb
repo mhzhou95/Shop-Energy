@@ -4,13 +4,13 @@ before_action :set_cart
 
 
 def set_cart 
-	   if @cart = Cart.find_by_id(session[:session_id])
-  		@cart = Cart.find_by_id(session[:session_id]) 
+	   if @cart = Cart.find_by_id(session[:cart_id])
+  		@cart = Cart.find_by_id(session[:cart_id]) 
   	end
   	
-  	if @cart = Cart.find_by_id(session[:session_id]).nil?
+  	if @cart = Cart.find_by_id(session[:cart_id]).nil?
 		@cart = Cart.create(totalcost: 0)
-  		session[:session_id] = @cart.id
+  		session[:cart_id] = @cart.id
   	end
   	@cart
 end
