@@ -6,13 +6,11 @@
 		description: <%= e_drink.description %><br>
 		price: $<%= e_drink.price %><br>
 		<%= image_tag e_drink.avatar.url(:medium) %>
-		<%= e_drink.id %>
 			
 			<%= form_for :items , url: {action: "add_item", controller: "carts"} do |f| %>
+			<%= select_tag(:quantity, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]], :selected => params[:quantity])) %>
 			<%= hidden_field_tag "itemid", e_drink.id %>
-			<%= f.submit "add to cart " %>
-			
-		
+			<%= f.submit "add to cart " %>	
 		<%end %>
 	</div>
 <% end %>

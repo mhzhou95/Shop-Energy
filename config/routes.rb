@@ -6,7 +6,7 @@ devise_scope :user do
 end
 
 
-
+  resources :charges
   resources :items
   resources :carts
   post "/add_item" => "carts#add_item"

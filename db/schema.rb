@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402202907) do
+ActiveRecord::Schema.define(version: 20180403200911) do
 
   create_table "carts", force: :cascade do |t|
     t.float "totalcost"
@@ -19,10 +19,19 @@ ActiveRecord::Schema.define(version: 20180402202907) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "carts_items", id: false, force: :cascade do |t|
+    t.integer "cart_id", null: false
+    t.integer "item_id", null: false
+    t.index ["cart_id", "item_id"], name: "index_carts_items_on_cart_id_and_item_id"
+    t.index ["item_id", "cart_id"], name: "index_carts_items_on_item_id_and_cart_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.float "price"
+    t.integer "quantity"
+    t.float "totalprice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_file_name"
