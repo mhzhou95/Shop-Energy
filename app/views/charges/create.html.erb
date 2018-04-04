@@ -1,1 +1,18 @@
-<h2>Tanks, you paid <strong>$5.00 </strong>!</h2>
+<nav>
+    	<ul>
+        <li> <%= link_to "Shop", items_path %></li>
+        <% if !user_signed_in? %>
+    		<li><%= link_to "Register", new_user_registration_path %></li>
+    		<li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
+             <li><%= link_to "Cart", cart_path(session[:session_id]) %></li>
+
+        <% if user_signed_in? %>
+        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% end %>
+    	</ul>
+</nav>
+
+
+
+<h2>Thanks, you paid <strong>$5.00 </strong>!</h2>
