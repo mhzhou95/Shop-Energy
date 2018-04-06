@@ -2,7 +2,7 @@
 
 <% @energy_drinks.each do |e_drink| %>
 	<div style= "text-align: center; display: inline-block; margin: 20px">
-		<%= e_drink.name %><br>
+		<div class="drinkName"><%= e_drink.name%></div><br>
 		description: <%= e_drink.description %><br>
 		price: $<%= e_drink.price %><br>
 		<%= image_tag e_drink.avatar.url(:medium) %>

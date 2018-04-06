@@ -1,8 +1,7 @@
 <div id="cart_wrapper">
     <% @cart.items.each do |t| %>
         <div class="cart_items">
-            item:
-            <%= t.name %>
+            <div class="drinkName"><%= t.name %></div>
                 <br> price: $
                 <%= t.price %>
                     <br>
