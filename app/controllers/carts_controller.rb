@@ -1,8 +1,8 @@
 class CartsController < ApplicationController
 	def show
 		@user = current_user
-		@cart = Cart.find_by_id(session[:session_id])
-	
+		@cart = Cart.find_by_id(session[:cart_id])
+		@stripe_pay = @cart.totalcost * 100
 	end
 
 	def new
@@ -12,26 +12,30 @@ class CartsController < ApplicationController
 
 	def add_item
 		item = Item.find_by_id(params[:itemid])
-		cart = Cart.find_by_id(session[:session_id])
-		p params[:quantity]
+		cart = Cart.find_by_id(session[:cart_id])
 		item.quantity = params[:quantity]
+		item.totalprice = (item.price * item.quantity)
 		if cart.items.include?(item) == false
 		cart.items << item
 		temp = cart.totalcost + (item.price * item.quantity)
 		cart.update(totalcost: temp)
-		flash[:message] = "item succesfully added to cart"
+		flash[:message] = "#{item.name} succesfully added to cart"
 		redirect_to root_path
 		else
-			flash[:message] = "item already in cart"
+			flash[:message] = "#{item.name} already in cart"
 			redirect_to root_path
 		end
 	end
 
-	def destroyItem
+	def delete_item
+		item = Item.find_by_id(params[:itemid])
+		cart = Cart.find_by_id(session[:cart_id])
+		if cart.items.destroy(params[:itemid])
+			temp = cart.totalcost - (item.price * item.quantity)
+			cart.update(totalcost: temp)
+		flash[:message]= "item removed from cart"
+		redirect_back(fallback_location: root_path)
+		end
 	end
-
-	def checkout
-	end
-
 
 end
