@@ -19,7 +19,7 @@
 
 <% @cart.items.each do |t| %>
 <div class="cart_items">
-    item: <%= t.name %><br> price: $<%= t.price %> <br><%= image_tag t.avatar.url(:medium) %><br> quantity: x<%= t.quantity %><br> totalcost: $<%=t.totalprice%> <br><br>
+    <div class="drinkName"><%= t.name %></div><br> price: $<%= t.price %> <br><%= image_tag t.avatar.url(:medium) %><br> quantity: x<%= t.quantity %><br> totalcost: $<%=t.totalprice%> <br><br>
 </div>
 <%end %>
 Amount Paid: $<%= @cart.totalcost %>
