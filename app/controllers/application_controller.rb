@@ -14,4 +14,11 @@ def set_cart
   	end
   	@cart
 end
+def authenticate_admin
+  unless current_user == User.find_by_id(1)
+    redirect_to "/"
+    flash[:message] = "You dont not have permission"
+  end
+end
+
 end
